@@ -10,6 +10,9 @@ public class UsuarioDTO {
     private String nome;
     private String email;
     private String senha;
+    private String registro;
     private Integer pontos;
     private LocalDate dataNascimento;
+    private LocalDate dataProximaConsulta;
+    private LocalDate dataUltimaConsulta;
 }
