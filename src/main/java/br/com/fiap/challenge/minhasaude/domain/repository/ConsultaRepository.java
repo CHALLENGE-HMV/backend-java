@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
-    @Query("SELECT c FROM Consulta c WHERE c.usuario.id = :userId AND c.dataHora < CURRENT_TIMESTAMP()")
+    @Query("SELECT c FROM Consulta c WHERE c.usuario.id = :userId AND c.dataHora < CURRENT_TIMESTAMP() ORDER BY c.dataHora DESC")
     List<Consulta> findAllRealizadasByUser(@Param("userId") Long userId);
 
-    @Query("SELECT c FROM Consulta c WHERE c.usuario.id = :userId AND c.dataHora >= CURRENT_TIMESTAMP()")
+    @Query("SELECT c FROM Consulta c WHERE c.usuario.id = :userId AND c.dataHora >= CURRENT_TIMESTAMP() ORDER BY c.dataHora ASC")
     List<Consulta> findAllAgendadasByUser(@Param("userId") Long userId);
 }

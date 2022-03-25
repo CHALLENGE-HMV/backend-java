@@ -13,10 +13,12 @@ import java.util.Optional;
 public class UsuarioService {
     private final UsuarioRepository repository;
     private final ModelMapper modelMapper;
+    private final ConsultaService consultaService;
 
-    public UsuarioService(UsuarioRepository repository, ModelMapper modelMapper) {
+    public UsuarioService(UsuarioRepository repository, ModelMapper modelMapper, ConsultaService consultaService) {
         this.repository = repository;
         this.modelMapper = modelMapper;
+        this.consultaService = consultaService;
     }
 
     public UsuarioDTO registrar(UsuarioDTO usuarioDTO) {
@@ -33,7 +35,10 @@ public class UsuarioService {
         if (usuarioOptional.isEmpty()) {
             throw new NegocioException("Usuário ou senha incorretos");
         }
-        return toUsuarioDTO(usuarioOptional.get());
+        UsuarioDTO usuarioReturn = toUsuarioDTO(usuarioOptional.get());
+        usuarioReturn.setDataUltimaConsulta(consultaService.getDataUltimaConsultaRealizadaByUser(usuarioOptional.get().getId()));
+        usuarioReturn.setDataProximaConsulta(consultaService.getDataProximaConsultaAgendadaByUser(usuarioOptional.get().getId()));
+        return usuarioReturn;
     }
 
     private Usuario toUsuario(UsuarioDTO usuarioDTO) {

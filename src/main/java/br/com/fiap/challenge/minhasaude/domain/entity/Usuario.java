@@ -23,5 +23,6 @@ public class Usuario {
     private String email;
     private String senha;
     private Integer pontos;
+    private String registro;
     private LocalDate dataNascimento;
 }
