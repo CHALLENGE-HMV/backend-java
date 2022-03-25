@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.minhasaude.core;
+package br.com.fiap.challenge.minhasaude.core.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
