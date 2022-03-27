@@ -1,31 +1,21 @@
 version: "3"
 services:
-  mysqldb:
-      image: mysql
-#      command: --init-file /data/application/init.sql
-      command: --default-authentication-plugin=mysql_native_password
-      ports:
-        - 3306:3306
-      environment:
-        MYSQL_DATABASE: msdb
-        MYSQL_ROOT_PASSWORD: admin
-        MYSQL_USER: admin
-        MYSQL_PASSWORD: admin
-      volumes:
-        - ./init.sql:/data/application/init.sql
-      restart: always
-  minhasaudepi:
-    image: georgefurtado/minha-saude-api:latest
-    links:
-      - mysqldb:mysqldb
-    depends_on:
-      - mysqldb
-    restart: always
+  db:
+    image: postgres
     ports:
-      - 8080:8080
+      - "5432:5432"
+    restart: always
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/easycoachdb?createDatabaseIfNotExist=true
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
-      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      POSTGRES_PASSWORD: fiapg9
+      POSTGRES_USER: fiapg9
+      POSTGRES_DB: minha-saude
+
+  minhasaudepi:
+    build: .
+    depends_on:
+      - db
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      APP_PROFILE: dev
