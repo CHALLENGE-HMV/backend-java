@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.jdbc.Sql;
 
 import br.com.fiap.challenge.minhasaude.MinhaSaudeApplication;
 
