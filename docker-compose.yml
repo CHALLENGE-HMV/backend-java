@@ -1,0 +1,30 @@
+version: "3"
+services:
+  mysqldb:
+      image: mysql
+      command: --init-file /data/application/init.sql
+      ports:
+        - 3306:3306
+      environment:
+        MYSQL_DATABASE: msdb
+        MYSQL_ROOT_PASSWORD: fiap9g
+        MYSQL_USER: fiap
+        MYSQL_PASSWORD: fiap9g
+      volumes:
+        - ./init.sql:/data/application/init.sql
+      restart: always
+  minhasaudepi:
+    image: georgefurtado/minha-saude-api:latest
+    links:
+      - mysqldb:mysqldb
+    depends_on:
+      - mysqldb
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/msdb?createDatabaseIfNotExist=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=fiap
+      - SPRING_DATASOURCE_PASSWORD=fiap9g
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=none
