@@ -4,6 +4,7 @@ import br.com.fiap.challenge.minhasaude.domain.entity.Consulta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 public class ConsultaRepositoryTest {
     @Autowired
     private DataSource dataSource;
@@ -47,7 +49,7 @@ public class ConsultaRepositoryTest {
         consultaRepository.save(consulta);
         assertFalse(consultaRepository.findAll().isEmpty());
         consultaRepository.delete(consulta);
-        assertTrue(consultaRepository.findAll().isEmpty());
+        assertTrue(consultaRepository.findById(consulta.getId()).isEmpty());
     }
 
     @Test

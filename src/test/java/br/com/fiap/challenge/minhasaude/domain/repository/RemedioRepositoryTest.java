@@ -4,6 +4,7 @@ import br.com.fiap.challenge.minhasaude.domain.entity.Remedio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 public class RemedioRepositoryTest {
     @Autowired
     private DataSource dataSource;
@@ -30,28 +32,28 @@ public class RemedioRepositoryTest {
     }
 
     @Test
-    public void deveSalvarUmaRemedio(){
+    public void deveSalvarUmRemedio(){
         remedioRepository.save(remedio);
         assertNotNull(remedio.getId());
     }
 
     @Test
-    public void deveBuscarUmaRemedio() {
+    public void deveBuscarUmRemedio() {
         remedioRepository.save(remedio);
         Optional<Remedio> remedioDb = remedioRepository.findById(remedio.getId());
         assertTrue(remedioDb.isPresent());
     }
 
     @Test
-    public void deveDeletarUmaRemedio() {
+    public void deveDeletarUmRemedio() {
         remedioRepository.save(remedio);
         assertFalse(remedioRepository.findAll().isEmpty());
         remedioRepository.delete(remedio);
-        assertTrue(remedioRepository.findAll().isEmpty());
+        assertTrue(remedioRepository.findById(remedio.getId()).isEmpty());
     }
 
     @Test
-    public void deveAtualizarUmaRemedio() {
+    public void deveAtualizarUmRemedio() {
         remedioRepository.save(remedio);
         String nome = "Novalgina";
         remedio.setNome(nome);

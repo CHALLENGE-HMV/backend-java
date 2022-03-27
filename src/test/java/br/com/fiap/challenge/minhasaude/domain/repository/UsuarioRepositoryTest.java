@@ -4,6 +4,7 @@ import br.com.fiap.challenge.minhasaude.domain.entity.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 public class UsuarioRepositoryTest {
     @Autowired
     private DataSource dataSource;
@@ -30,28 +32,28 @@ public class UsuarioRepositoryTest {
     }
 
     @Test
-    public void deveSalvarUmaUsuario(){
+    public void deveSalvarUmUsuario(){
         usuarioRepository.save(usuario);
         assertNotNull(usuario.getId());
     }
 
     @Test
-    public void deveBuscarUmaUsuario() {
+    public void deveBuscarUmUsuario() {
         usuarioRepository.save(usuario);
         Optional<Usuario> usuarioDb = usuarioRepository.findById(usuario.getId());
         assertTrue(usuarioDb.isPresent());
     }
 
     @Test
-    public void deveDeletarUmaUsuario() {
+    public void deveDeletarUmUsuario() {
         usuarioRepository.save(usuario);
         assertFalse(usuarioRepository.findAll().isEmpty());
         usuarioRepository.delete(usuario);
-        assertTrue(usuarioRepository.findAll().isEmpty());
+        assertTrue(usuarioRepository.findById(usuario.getId()).isEmpty());
     }
 
     @Test
-    public void deveAtualizarUmaUsuario() {
+    public void deveAtualizarUmUsuario() {
         usuarioRepository.save(usuario);
         String nome = "Cleiton";
         usuario.setNome(nome);

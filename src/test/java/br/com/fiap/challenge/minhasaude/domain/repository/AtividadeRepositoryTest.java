@@ -4,6 +4,7 @@ import br.com.fiap.challenge.minhasaude.domain.entity.Atividade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 public class AtividadeRepositoryTest {
     @Autowired
     private DataSource dataSource;
@@ -47,7 +49,7 @@ public class AtividadeRepositoryTest {
         atividadeRepository.save(atividade);
         assertFalse(atividadeRepository.findAll().isEmpty());
         atividadeRepository.delete(atividade);
-        assertTrue(atividadeRepository.findAll().isEmpty());
+        assertTrue(atividadeRepository.findById(atividade.getId()).isEmpty());
     }
 
     @Test
