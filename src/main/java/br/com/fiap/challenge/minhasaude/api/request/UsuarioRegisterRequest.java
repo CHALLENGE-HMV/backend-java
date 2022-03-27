@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 public class UsuarioRegisterRequest {
     private String email;
     private String senha;
-    private String registro;
+    private String nome;
 
     public Usuario toEntity() {
         return Usuario.builder()
+                .nome(getNome())
                 .email(getEmail())
                 .senha(getSenha())
                 .build();

@@ -2,14 +2,15 @@ version: "3"
 services:
   mysqldb:
       image: mysql
-      command: --init-file /data/application/init.sql
+#      command: --init-file /data/application/init.sql
+      command: --default-authentication-plugin=mysql_native_password
       ports:
         - 3306:3306
       environment:
         MYSQL_DATABASE: msdb
-        MYSQL_ROOT_PASSWORD: fiap9g
-        MYSQL_USER: fiap
-        MYSQL_PASSWORD: fiap9g
+        MYSQL_ROOT_PASSWORD: admin
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: admin
       volumes:
         - ./init.sql:/data/application/init.sql
       restart: always
@@ -23,8 +24,8 @@ services:
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/msdb?createDatabaseIfNotExist=true&useSSL=false
-      - SPRING_DATASOURCE_USERNAME=fiap
-      - SPRING_DATASOURCE_PASSWORD=fiap9g
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
-      - SPRING_JPA_HIBERNATE_DDL-AUTO=none
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/easycoachdb?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update

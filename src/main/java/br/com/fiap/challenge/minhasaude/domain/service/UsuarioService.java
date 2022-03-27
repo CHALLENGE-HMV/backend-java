@@ -6,6 +6,7 @@ import br.com.fiap.challenge.minhasaude.domain.entity.Usuario;
 import br.com.fiap.challenge.minhasaude.domain.exception.NegocioException;
 import br.com.fiap.challenge.minhasaude.domain.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,12 @@ public class UsuarioService {
         }
         usuario.setSenha(_passwordEncoder.encode(usuario.getSenha()));
         return repository.save(usuario);
+    }
+
+    public Usuario findByEmail(String email) throws ApiErrorException {
+        Optional<Usuario> optionalUser = repository.findByEmail(email);
+        return optionalUser.orElseThrow(
+                () -> new ApiErrorException(HttpStatus.NOT_FOUND, "The informed user doesn't exists"));
     }
 
 }
