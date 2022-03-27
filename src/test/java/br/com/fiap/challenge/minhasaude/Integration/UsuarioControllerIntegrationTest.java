@@ -27,6 +27,7 @@ public class UsuarioControllerIntegrationTest {
     public void ShouldRegisterNonExistUsuario() {
 
         UsuarioRegisterRequest registerRequest = new UsuarioRegisterRequest();
+        registerRequest.setNome("Paciente Fiap");
         registerRequest.setEmail("hmv@fiap.com.br");
         registerRequest.setSenha("123456");
 
@@ -40,6 +41,7 @@ public class UsuarioControllerIntegrationTest {
     public void ShouldNotRegisterExistingUsuario() {
 
         UsuarioRegisterRequest registerRequest = new UsuarioRegisterRequest();
+        registerRequest.setEmail("Paciente Fiap");
         registerRequest.setEmail("hmv@fiap.com.br");
         registerRequest.setSenha("123456");
 
