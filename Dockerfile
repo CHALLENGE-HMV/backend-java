@@ -1,5 +1,10 @@
-FROM openjdk:11
-WORKDIR /app
-ADD ./target/minha-saude-0.0.1-SNAPSHOT.jar /app
+FROM maven:3.6.3-openjdk-11-slim as build
+COPY /src /app/src
+COPY /pom.xml /app
+RUN mvn -f /app/pom.xml clean package
+
+FROM openjdk:11-jre-slim
+VOLUME /tmp
 EXPOSE 8080
-CMD ["java", "-jar", "minha-saude-0.0.1-SNAPSHOT.jar"]
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
