@@ -1,5 +1,6 @@
 package br.com.fiap.challenge.minhasaude.domain.entity;
 
+import br.com.fiap.challenge.minhasaude.api.response.UsuarioResponse;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,15 @@ public class Usuario {
     private Integer pontos;
     private String registro;
     private LocalDate dataNascimento;
+
+    public UsuarioResponse toResponse() {
+        return UsuarioResponse.builder()
+                .id(getId())
+                .nome(getNome())
+                .email(getEmail())
+                .pontos(getPontos())
+                .registro(getRegistro())
+                .dataNascimento(getDataNascimento())
+                .build();
+    }
 }
