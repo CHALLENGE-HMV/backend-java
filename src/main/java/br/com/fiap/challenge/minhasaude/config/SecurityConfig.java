@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.minhasaude.core.config;
+package br.com.fiap.challenge.minhasaude.config;
 
 import br.com.fiap.challenge.minhasaude.core.filter.AuthTokenFilter;
 import br.com.fiap.challenge.minhasaude.core.security.AuthEntryPointJwt;

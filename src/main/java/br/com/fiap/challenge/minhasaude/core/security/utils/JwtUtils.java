@@ -14,7 +14,7 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    private String jwtSecret = "fiapSecret";
+    private String jwtSecret = "FiapGrupo9SecretKey";
     private int jwtExpirationMs = 86400000;
 
     public String generateJwtToken(Authentication authentication) {
